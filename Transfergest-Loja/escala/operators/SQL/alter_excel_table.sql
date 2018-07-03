@@ -1,0 +1,3 @@
+ALTER TABLE `excel` ADD `morada_recolha` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `local_entrega`, ADD `morada_entrega` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `morada_recolha`, ADD `morada_recolha_gps` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `morada_entrega`, ADD `morada_entrega_gps` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `morada_recolha_gps`;
+
+ALTER TABLE `excel` ADD `voo_horario` VARCHAR(50) NOT NULL AFTER `voo`;

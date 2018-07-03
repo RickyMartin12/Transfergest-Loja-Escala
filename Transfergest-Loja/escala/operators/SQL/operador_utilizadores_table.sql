@@ -1,0 +1,12 @@
+CREATE TABLE `operador_utilizadores` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`nome` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+	`email` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+	`utilizador` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+	`password` VARCHAR(250) CHARACTER SET 'utf8' NOT NULL,
+	`operador_id` INT UNSIGNED NOT NULL,
+	`isLocked` TINYINT UNSIGNED DEFAULT 0,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+	UNIQUE INDEX `utilizador_UNIQUE` (`utilizador` ASC)
+);

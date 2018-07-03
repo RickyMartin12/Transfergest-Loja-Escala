@@ -1,0 +1,180 @@
+<?php
+session_start();
+include('info/nocsrf.php');
+$token = NoCSRF::generate( 'csrf_token' );
+?>
+
+
+ <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+       <link href="css/select2.min.css" type="text/css" rel="stylesheet">
+       <link href="css/font-awesome.min.css" rel="stylesheet"> 
+       <link rel="stylesheet" href="css/w3.css">
+       <link rel="stylesheet" href="css/font.css">
+       <link rel="stylesheet" href="css/style2.css">
+        
+       
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+       
+       <script src="js/moment-with-locales.js"></script>
+       <script src="js/bootbox.min.js"></script>
+       <script src="js/select2.full.min.js"></script>
+       <script src="calls.js"></script>
+       <script src="js/bootstrap.min.js"></script>
+       <script src="js/bootstrap-datetimepicker.js"></script>
+       <script src="js/custom.js"></script>        
+                
+       
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+
+<!-- Loja de Compra -->
+
+
+
+
+
+
+<div class="bgimg w3-display-container w3-animate-opacity">
+
+			    	<section id="page-top" class="section-style" data-background-image="images/background/page-top.jpg">
+						<div class="pattern height-resize">
+							<div class="container">			  
+						<h1 class="site-title"><img class="fixed-ratio-resize" alt=""/></h1>
+						
+					
+					<div class='load'></div>
+
+					<?php require 'shop.php'; ?>
+
+					</div>
+					</div>
+					</section>
+
+		</div>
+				
+
+<!-- End Loja Compra -->
+
+
+
+<?php
+  include ('models_info.php');
+?>
+<!-- Loader -->
+<script>
+
+
+
+   setTimeout(function(){ $('.load').fadeOut();  }, 4500);
+
+
+
+   
+</script>
+
+<script src="//www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
+    <script type="text/javascript">
+        var CaptchaCallback = function(){
+        grecaptcha.render('RecaptchaField1', {'sitekey' : '6LfM8xcUAAAAANMy_9s3POFk5iLtNllzjdKxo70s'});
+        };
+</script>
+
+
+
+
+
+<script>
+function myMap() {
+  var myCenter = new google.maps.LatLng(37.0913082,-8.2229657);
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {center: myCenter, zoom: 16,  zoomControl: true, scaleControl: false, scrollwheel: false, disableDoubleClickZoom: true};
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({position:myCenter});
+  marker.setMap(map);
+  google.maps.event.addListener(marker,'click',function() {
+    var infowindow = new google.maps.InfoWindow({
+      content:"<strong>TransferGest</strong>"
+    });
+  infowindow.open(map,marker);
+  });
+}
+</script>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDStLYcYnL_jyIcmrChfZ3rGp71WBHHBmc	&libraries=places&callback=myMap&sensor=false"></script>
+
+
+
+
+
+
+
+<script>
+$("#info #bt_subm").click(function(e){
+              
+              dataValue = $("#info").serialize();
+              $('.back').show();
+              $('.load').show();
+              e.preventDefault();
+        dataValue = $("#info").serialize();
+
+              $.ajax({
+                  url: "/loja/info/inforequest.php",
+                  type: "POST",
+                  data: dataValue,
+                  cache: false,
+                  success: function(data) 
+                  {
+                     $('.back').hide();
+                     $('.load').hide();
+                     console.log (data);
+                     
+                     if (data == 11)
+                     {
+                       //$(".res").html("");
+                       $("#modal_sucsess").css('display','block');
+                       $("#modal_sucsess").find("p").html("O formulário do cliente foi preenchido com sucesso");
+                       $('#modal_sucsess').modal('show');
+                       $(".modal-backdrop").css('display','none');
+                       document.getElementById("info").reset();
+                       //setTimeout(function(){ $('#modal_sucsess').modal('hide'); }, 7000);
+                     }
+                     else if(data == 4)
+                     {
+                       //$(".res").html("- Por favor, Insere o recaptcha. I'm not a robot.");
+                       $("#modal_warning").css('display','block');
+                       $("#modal_warning").find("p").html("Por favor, Insere o recaptcha. I'm not a robot.");
+                       $('#modal_warning').modal('show'); 
+                       $(".modal-backdrop").css('display','none');
+                       //setTimeout(function(){ $('#modal_warning').modal('hide'); }, 7000);
+                     }
+                     else 
+                     {
+                       //$(".res").html(data);
+                       $("#modal_warning").css('display','block');
+                       $("#modal_warning").find("p").html("Por favor, Insere os seguintes campos: "+data);
+                       $('#modal_warning').modal('show'); 
+                       $(".modal-backdrop").css('display','none');
+                       //setTimeout(function(){ $('#modal_warning').modal('hide'); }, 7000);
+                     }
+
+
+                  },
+                  error: function() {
+                      $(".res").html(data);
+                      $('.back').hide();
+                      $("#modal_warning").css('display','block');
+                      $("#modal_warning").find("p").html("Erro ao submeter os dados");
+                       $('#modal_warning').modal('show'); 
+                      $(".modal-backdrop").css('display','none');
+                       //setTimeout(function(){ $('#modal_warning').modal('hide'); }, 7000);
+                  }
+              })
+  });
+</script>

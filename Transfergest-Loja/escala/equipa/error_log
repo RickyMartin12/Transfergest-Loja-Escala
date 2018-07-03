@@ -1,0 +1,10 @@
+[10-May-2017 00:25:39 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_app.php on line 6
+[10-May-2017 00:25:39 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_team.php on line 5
+[10-May-2017 00:25:48 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_app.php on line 6
+[10-May-2017 00:25:49 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_team.php on line 5
+[10-May-2017 00:26:08 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_team.php on line 5
+[10-May-2017 00:26:09 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_app.php on line 6
+[10-May-2017 00:26:28 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_team.php on line 5
+[10-May-2017 00:26:30 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_app.php on line 6
+[10-May-2017 00:26:49 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_team.php on line 5
+[10-May-2017 00:26:51 UTC] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/oa1uszym/public_html/escala/equipa/action_app.php on line 6

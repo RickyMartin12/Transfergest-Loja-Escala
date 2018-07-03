@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>HTML5 Scheduler PDF Export</title>
+
+		<style type="text/css">
+			p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
+			body { padding: 0px; margin: 0px; background-color: #ffffff; }
+			a { color: #1155a3; }
+			.space { margin: 10px 0px 10px 0px; }
+			.header { background: #003267; background: linear-gradient(to right, #011329 0%,#00639e 44%,#011329 100%); padding:20px 10px; xwidth:100%; color: white; box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75); }
+			.header a { color: white; }
+			.header h1 a { text-decoration: none; }
+			.header h1 { padding: 0px; margin: 0px; }
+			.main { padding: 10px }
+		</style>
+
+                <script src="js/jquery-1.9.1.min.js"></script>
+
+                <!-- jsPDF: PDF generator -->
+                <script src="js/jspdf/jspdf.min.js"></script>
+
+		<!-- DayPilot library -->
+		<script src="js/daypilot/daypilot-all.min.js"></script>
+
+        </head>
+    <body>
+        <div class="header">
+            <h1><a href='http://code.daypilot.org/73551/html5-scheduler-pdf-export'>HTML5 Scheduler PDF Export</a></h1>
+            <div><a href="http://javascript.daypilot.org/">DayPilot for JavaScript</a> - AJAX Calendar/Scheduling Widgets for JavaScript/HTML5/jQuery/AngularJS</div>
+        </div>
+
+        <div class="main">
+
+            <div id="dp"></div>
+
+            <script>
+                var dp = new DayPilot.Scheduler("dp");
+                dp.scale = "Day";
+                dp.timeHeaders = [
+                    { groupBy: "Month"},
+                    { groupBy: "Day", format: "d"}
+                ];
+                dp.heightSpec = "Max";
+                dp.height = 300;
+
+                dp.startDate = new DayPilot.Date("2016-01-01");
+                dp.days = 366;
+                dp.resources = [
+                    {name: "Resource 1", id: 1},
+                    {name: "Resource 2", id: 2},
+                    {name: "Resource 3", id: 3},
+                    {name: "Resource 4", id: 4},
+                    {name: "Resource 5", id: 5},
+                    {name: "Resource 6", id: 6},
+                    {name: "Resource 7", id: 7},
+                    {name: "Resource 8", id: 8},
+                    {name: "Resource 9", id: 9},
+                    {name: "Resource 10", id: 10},
+                    {name: "Resource 11", id: 11},
+                    {name: "Resource 12", id: 12},
+                    {name: "Resource 13", id: 13},
+                    {name: "Resource 14", id: 14},
+                    {name: "Resource 15", id: 15},
+                    {name: "Resource 16", id: 16},
+                    {name: "Resource 17", id: 17},
+                    {name: "Resource 18", id: 18},
+                    {name: "Resource 19", id: 19},
+                    {name: "Resource 20", id: 20},
+                ];
+                dp.events.list = [
+                    {
+                        start: "2016-01-04",
+                        end: "2016-01-09",
+                        id: 1,
+                        resource: 2,
+                        text: "Reservation #1"
+                    }
+
+                ];
+                dp.init();
+
+            </script>
+
+            <div id="out" style="margin:10px 0px;">PDF: <button id="download">Download</button></div>
+
+            <div id="export"></div>
+
+            <script>
+                $("#download").click(function() {
+                    var blob = createPdfAsBlob();
+                    DayPilot.Util.downloadBlob(blob, "scheduler.pdf");
+                });
+
+                function createPdfAsBlob() {
+                    var doc = new jsPDF("landscape", "in", "letter");
+                    doc.setFontSize(40);
+                    doc.text(0.5, 1, "Scheduler");
+
+                    for (var i = 1; i <= 12; i++) {
+                        var image = dp.exportAs("jpeg", {
+                            area: "range",
+                            scale: 2,
+                            dateFrom: dp.startDate.addMonths(i-1),
+                            dateTo: dp.startDate.addMonths(i),
+                            quality: 0.95
+                        });
+                        var dimensions = image.dimensions();
+                        var ratio = dimensions.width / dimensions.height;
+                        var width = 10;
+                        var height = width/ratio;
+                        doc.addImage(image.toDataUri(), 'JPEG', 0.5, 1.5, width, height);
+
+                        var last = i === 12;
+                        if (!last) {
+                            doc.addPage();
+                        }
+                    }
+
+                    return doc.output("blob");
+                }
+
+            </script>
+
+        </div>
+
+    </body>
+</html>

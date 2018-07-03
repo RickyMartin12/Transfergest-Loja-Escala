@@ -1,0 +1,26 @@
+{
+  "name": "wilsonpinto/transfergest-operators",
+  "description": "",
+  "keywords": [
+    "transfergest",
+    "operators"
+  ],
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Wilson Pinto",
+      "email": "wilsonpinto360@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "sngrl/php-firebase-cloud-messaging": "dev-master",
+    "setasign/fpdf" : "~1.8.1"
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
+}

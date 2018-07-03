@@ -1,0 +1,236 @@
+<html lang="en">
+
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<style>
+
+.modal-dialog{
+z-index:1051;}
+
+</style>
+    <link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+<input type="hidden" id="mensagem_ok" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Modalok">
+<div id="Modalok" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color:#5cb85c;"> <span class='glyphicon glyphicon-ok'></span> Sucesso</h4>
+      </div>
+      <div class="modal-body">
+        <p class="debug-url"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-remove-sign'></span> Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="mensagem_ko" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Modalko">
+<div id="Modalko" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color:#d9534f;"><span class='glyphicon glyphicon-warning-sign'></span> Aviso</h4>
+      </div>
+      <div class="modal-body">
+        <p class="debug-url"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-remove-sign'></span> Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='default' id="default_schedule">
+<div id="scheduler"></div>
+</div>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqxbuttons.js"></script>
+    <script type="text/javascript" src="js/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="js/jqxdata.js"></script>
+    <script type="text/javascript" src="js/jqxdate.js"></script>
+    <script type="text/javascript" src="js/jqxscheduler.js"></script>
+    <script type="text/javascript" src="js/jqxscheduler.api.js"></script>
+    <script type="text/javascript" src="js/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="js/jqxmenu.js"></script>
+    <script type="text/javascript" src="js/jqxcalendar.js"></script>
+    <script type="text/javascript" src="js/jqxtooltip.js"></script>
+    <script type="text/javascript" src="js/jqxwindow.js"></script>
+    <script type="text/javascript" src="js/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="js/jqxlistbox.js"></script>
+    <script type="text/javascript" src="js/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="js/jqxnumberinput.js"></script>
+    <script type="text/javascript" src="js/jqxradiobutton.js"></script>
+    <script type="text/javascript" src="js/jqxinput.js"></script>
+    <script type="text/javascript" src="js/globalize.js"></script>
+    <script type="text/javascript" src="js/globalize.culture.en-US.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        var staff = [];
+        var today = new Date();
+        var dd = today.getDate()+1;
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear();
+        var m=today.getMonth();
+        if(dd<10) dd='0'+dd; 
+        if(mm<10) mm='0'+mm;
+        today = mm+'/'+dd+'/'+yyyy;
+        var source =
+            {
+                dataType: 'json',
+                dataFields: [
+                    { name: 'id', type: 'string' },
+                    { name: 'description', type: 'string' },
+                    { name: 'location', type: 'string' },
+                    { name: 'subject', type: 'string' },
+                    { name: 'draggable', type: 'boolean' },
+                    { name: 'hidden', type: 'boolean' },
+                    { name: 'resizable' , type: 'boolean' },
+                    { name: 'readOnly' , type: 'boolean' },
+                    { name: 'calendar', type: 'string' },
+                    { name: 'start', type: 'date' },
+                    { name: 'end', type: 'date' }
+                ],
+                id: 'id',
+                //localData: obj,
+                url: 'datasemana.php'
+/*
+                beforeprocessing: function (data) {
+                for (i=0;i<data.length;i++){
+                staff.push(data[i].id);}
+           }    */   
+   
+            };
+
+            var adapter = new $.jqx.dataAdapter(source);
+            $("#scheduler").jqxScheduler({
+                date: new $.jqx.date(today),
+                width:'100%',
+                height: '100%',
+                rowsHeight: 40,
+                source: adapter,
+                showLegend:false,
+                    editDialogCreate: function (dialog, fields, editAppointment) {
+                    fields.repeatContainer.hide();
+                    fields.statusContainer.hide();
+                    fields.timeZoneContainer.hide();
+                    fields.allDayLabel.hide();
+                    fields.allDay.hide();
+                    fields.colorContainer.hide();
+                    fields.subjectLabel.hide()
+                    fields.subject.hide()
+                    fields.from.hide();
+                    fields.fromLabel.hide();
+                    fields.locationLabel.hide();
+                    fields.location.hide();
+                    fields.toLabel.hide();
+                    fields.to.hide();
+                    fields.repeatLabel.hide();
+                    fields.repeat.hide();
+                    fields.descriptionLabel.hide();
+                    fields.description.hide();
+                    fields.resourceLabel.html("Staff");
+                    fields.deleteButton.remove();
+                },
+                ready: function () {
+                 },
+                 legendHeight: 30,
+                 rowsHeight: 10,
+                resources:
+                {
+                    colorScheme: "scheme04",
+                    dataField: "calendar",
+                    //orientation: "horizontal",
+                    source:  new $.jqx.dataAdapter(source)
+                },
+                appointmentDataFields:
+                {
+                    from: "start",
+                    to: "end",
+                    id: "id",
+                    description: "description",
+                    location: "location",
+                    subject: "subject",
+                    resourceId: "calendar",
+                    draggable: "draggable",
+                    hidden: "hidden",
+                    resizable: "resizable"
+                },
+                view: 'weekView',
+               
+                    { type: 'weekView', showWorkTime: false, appointmentHeight: 50, timeRuler: { scale: 'halfHour', formatString: 'HH:mm' }}
+                ]
+            });
+
+                $("#scheduler").on('appointmentChange', function (event) {
+                var args = event.args;
+                var appointment = args.appointment;
+                dataValue="staff="+appointment.resourceId+"&id="+appointment.id+"&action=17";
+                $.ajax({ url:'upd_schedules.php',
+                data:dataValue,
+                type:'POST', 
+                success:function(data){
+                 if (data == 0){
+                  $('.debug-url').html('Erro, ao atribuir o Staff ao Transfer <b>#'+appointment.id+'</b>!<br><a class="btn btn-warning" href="index.html">Atualizar</a>');
+                  $("#mensagem_ko").trigger('click');
+              }   
+                },
+                error:function(){
+                 $('.debug-url').html('Erro, ao atribuir o Staff para o Transfers <b>#'+appointment.id+'</b>, p.f. verifique a Acesso Internet');
+                 $("#mensagem_ko").trigger('click');
+                }
+              });
+            });   
+        });
+
+function SendServiceSchedule(id){
+setTimeout(function(){
+ dataValue="id="+id+"&action=1";
+  $.ajax({ url:'../mail_notifica.php',
+    data:dataValue,
+    type:'POST', 
+     success:function(data){
+console.log(data);
+       if (data == 0){
+        $('.debug-url').html('Não foi possivel enviar email para elemento do staff: <b>'+id+'</b>, p.f verifique os dados inseridos no link: "Configuracoes -> Sistema".');
+        $("#mensagem_ko").trigger('click');
+       }
+      else if (data == 10 ){
+        $('.debug-url').html('Não foi possivel enviar email para elemento do staff: <b>'+id+'</b>, p.f verifique os dados inseridos no link: "Staff -> Editar".');
+        $("#mensagem_ko").trigger('click');
+       }
+  else if (data == 110){
+        $('.debug-url').html('Não foi possivel enviar email, o elemento do staff: <b>'+id+'</b> sem serviços atribuidos. p.f. atribua servicos.');
+        $("#mensagem_ko").trigger('click');
+       }
+   else if (data == 1111){
+        $('.debug-url').html('Os Servicos foram enviados com sucesso, para o elemento do staff: <b>'+id+'</b>.');
+        $('.bt-'+id).addClass('btn-success');
+        $("#mensagem_ok").trigger('click');
+       }
+
+   else {
+        $('.debug-url').html('Erro, não definido!!');
+        $("#mensagem_ko").trigger('click');
+       }
+    },
+    error:function(data){
+console.log(data);
+     $('.debug-url').html('Erro ao enviar dados para o elemento do staff: <b>'+id+'</b>, p.f. verifique o Acesso Internet.');
+     $("#mensagem_ko").trigger('click');
+    }
+  });
+
+}, 500);
+}
+
+    </script>
+</html>
