@@ -4,6 +4,15 @@
 
 Username e Password: admin
 
+#### 1.1 - Database SQL (Escala Loja / Transfergest & Users)
+
+https://github.com/RickyMartin12/Transfergest-Loja-Escala/tree/master/Transfergest-Loja/Database-SQL
+
+#### Sites que funcionam com o transfergest
+
+https://aquago-transfers.com/index.php?lang=pt
+https://jumpylittlemonkey.com/
+
 ### Imagens sobre Transfergest da Escala
 
 ![administrador_grafico_proveitos_despesas](https://user-images.githubusercontent.com/9846274/42200133-e7de4534-7e89-11e8-8dec-f1c4195c0b3b.png)
